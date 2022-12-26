@@ -36,7 +36,20 @@ class MahasiswaController extends Controller
         return view ('edit',compact('mhs'));
     }
 
-    public function update(){
+    public function update(Request $request, $id){
+
+        $mhs = Mahasiswa::find($id);
+        $mhs->nama = $request->nama;
+        $mhs->nim = $request->nim;
+        $mhs->prodi = $request->prodi;
+        $mhs->alamat = $request->alamat;
+        $hashName = time().rand(100,999).".". 
+                    $request->file('foto')->getClientOriginalExtension();
+        $request->file('foto')->move('foto/','mhs-'. $hashName);
+        $mhs->foto = 'mhs-'. $hashName;
+        $mhs->save();
+        
+        return redirect()->back();
         
     }
 

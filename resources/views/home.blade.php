@@ -1,22 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<style>
-.table {
-    border: 1px solid;
-}
-/* th {
-    border-right: 1px solid;
-} */
-
-</style>
-<body>
+@extends('layouts.main')
+@section('content')
 
     <h1>Hello Word</h1>
     <div>
@@ -25,23 +8,23 @@
             <div>
                 <div style="padding: 10px">
                     <input type="text" class="form-control" name="nama" 
-                    placeholder="Nama" >
+                    placeholder="Nama" required>
                 </div>
                 <div style="padding: 10px">
                     <input type="text" class="form-control" name="nim" 
-                    placeholder="NIM" >
+                    placeholder="NIM" required>
                 </div>
                 <div style="padding: 10px">
                     <input type="text" class="form-control" name="prodi" 
-                    placeholder="Prodi" >
+                    placeholder="Prodi" required>
                 </div>
                 <div style="padding: 10px">
                     <input type="text" class="form-control" name="alamat" 
-                    placeholder="Alamat" >
+                    placeholder="Alamat" required>
                 </div>
                 <div style="padding: 10px">
                     <input type="file" class="form-control" name="foto" 
-                    placeholder="Foto" >
+                    placeholder="Foto" required>
                 </div>
             </div>
             <div style="padding: 10px">
@@ -49,39 +32,48 @@
             </div>
         </form>
     </div>
-    <div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama</th>
-                    <th>Nim</th>
-                    <th>Prodi</th>
-                    <th>Alamat</th>
-                    <th>Foto</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-                @foreach ( $mahasiswa as $item )
-            <tbody>
-                <tr>
-                    <td>{{$item->id}}</td>
-                    <td>{{$item->nama}}</td>
-                    <td>{{$item->nim}}</td>
-                    <td>{{$item->prodi}}</td>
-                    <td>{{$item->alamat}}</td>
-                    <td>{{$item->foto}}</td>
-                    <td>
-                        <a href="{{route('edit', $item->id)}}">
-                             Edit</a>
-                        <a href="{{route('delete', $item->id)}}">
-                             Hapus</a>
-                    </td>
-                </tr>
-            </tbody>
-                @endforeach
-        </table>
+    
+
+   <!-- DataTales Example -->
+   <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
     </div>
-        
-</body>
-</html>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Nama</th>
+                        <th>Nim</th>
+                        <th>Prodi</th>
+                        <th>Alamat</th>
+                        <th>Foto</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                @foreach ( $mahasiswa as $item )
+                <tbody>
+                    <tr>
+                        <td>{{$loop->iteration}}</td>
+                        <td>{{$item->nama}}</td>
+                        <td>{{$item->nim}}</td>
+                        <td>{{$item->prodi}}</td>
+                        <td>{{$item->alamat}}</td>
+                        <td>{{$item->foto}}</td>
+                        <td>
+                            <a class="btn btn-success btn-sm" href="{{route('edit', $item->id)}}">
+                                Edit</a>
+                            <a class="btn btn-danger btn-sm" href="{{route('delete', $item->id)}}">
+                                Hapus</a>
+                        </td>
+                    </tr>
+                </tbody>
+                @endforeach
+            </table>
+        </div>
+    </div>
+</div> 
+
+@endsection
